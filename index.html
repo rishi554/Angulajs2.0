@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Angular JS Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="AngularJS/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    </head>
+    <body>
+        <div class="container" ng-app="Modules" ng-controller="Controllers" data-ng-init="init()">
+            <form name="UserForm" novalidate ng-submit="FormValidate($event)">
+             <h2>User Registration</h2>
+            <p>Fill below information to register</p> 
+            <p id="UserRegistrationMsg"></p>
+            <div class="col col-md-6">
+             <div class="form-group">
+                <label for="text">First Name:</label>
+                <input type="hidden" class="form-control" name="id" ng-model="id">
+                <input type="text" class="form-control" name="first_name" ng-model="first_name" placeholder="Enter First Name" required>
+                <span style="color:red" ng-show="firstnameRequire">First Name is required.</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="text">Last  Name:</label>
+                <input type="text" class="form-control" name="last_name" ng-model="last_name" placeholder="Enter Last Name" required>
+                <span style="color:red" ng-show="lastnameRequire">Last Name is required.</span>
+              </div>
+            </div>
+            <div class="col col-md-6">
+             <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" ng-model="email" placeholder="Enter Email" required>
+                <span style="color:red;" ng-show="mailRequire">Email required</span>
+                <span ng-show="UserForm.email.$error.email">Invalid email address.</span>
+              </div>
+              <div class="form-group">
+                <label for="pwd">Mobile:</label>
+                <input type="text" class="form-control" ng-minlength="10" ng-maxlength="10" name="mobile" ng-model="mobile" placeholder="Enter Mobile Number" required>
+                <span class="help-block" style="color:red" ng-show="mobileRequire">Valid phone number is required</span>
+                <span class="help-block" style="color:red" ng-show="((UserForm.mobile.$error.minlength || UserForm.mobile.$error.maxlength) && UserForm.mobile.$dirty)">phone number should be 10 digits</span>
+              </div>
+            </div>
+            <div class="col col-md-12">
+                <input type="submit" class="btn btn-info" name="btnAddUser" ng-click="UserForm.$valid && AddUser()" value="{{btnName}}" />&nbsp;&nbsp;
+                <input type="button" class="btn btn-danger" name="btnRestUser" ng-click="ResetUser()" value="Cancel" />
+            </div>
+        </form>
+        <div class="clearfix"></div>
+            <h2>User Details</h2>
+            <p>User details as follows</p>
+            <p id="UserDetailsMsg"></p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th colspan="2" style="text-align:center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                    <td align="center">{{user.id}}</td>
+                    <td>{{user.FirstName}}</td>
+                    <td>{{user.LastName}}</td>
+                    <td>{{user.Email}}</td>
+                    <td>{{user.Mobile}}</td>
+                    <td align="center"><span ng-click="UpdateUser(user.id,user.FirstName,user.LastName,user.Email,user.Mobile)"><i class="fa fa-edit fa-2x" style="color:#0F74BD;cursor:pointer"></i></span></td>
+                    <td align="center"><span ng-click="DeleteUser(user.id)"><i class="fa fa-trash fa-2x" style="color:#0F74BD;cursor:pointer"></i></span></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <script src="AppJS/Modules.js"></script>
+        <script src="AppJS/Controllers.js"></script>
+    </body>
+</html>

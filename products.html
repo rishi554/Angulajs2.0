@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Angular JS Cart Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="AngularJS/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container" ng-app="CartModule" ng-controller="CartController" data-ng-init="init()">
+            <div class="col col-md-6">
+                <h2>Product Details
+                    <span class="pull-right"><i class="fa fa-shopping-cart"></i><label class="label label-danger" style="font-size:10px">{{count}}</label></span>
+                </h2><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center">#</th>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="getproduct in products">
+                            <td align="center">{{getproduct.id}}</td>
+                            <td><img src='{{"/AngularJS/images/" + getproduct.ProductImage}}' alt="" height="80" width="100"/></td>
+                            <td>{{getproduct.ProductName}}</td>
+                            <td>{{getproduct.ProductDescription}}</td>
+                            <td>{{getproduct.Price}}</td>
+                            <td align="center"><span ng-click="AddToCart(getproduct.id)"><i class="fa fa-shopping-cart fa-2x" style="color:#0F74BD;cursor:pointer" title="Add to cart"></i></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col col-md-6">
+                <h2>Cart Details</h2><br>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Product Id</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th style="text-align: center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="Item in CartItems" id="CartDetails">
+                            <td align="center">{{Item.id}}</td>
+                            <td>{{Item.ProductName}}</td>
+                            <td>{{Item.QTY}}</td>
+                            <td>{{Item.Amount}}</td>
+                            <td align="center"><span ng-click="RemoveFromCart(Item.id)"><i class="fa fa-shopping-cart fa-2x" style="color:#0F74BD;cursor:pointer" title="Remove From Cart"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="3"><b>Total: </b></td>
+                            <td align="left" colspan="2"> {{ getCartTotal()}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="pull-right">
+                    <input type="submit" name="PlaceOrder" ng-model="PlaceOrder" ng-click="PlaceOrder()" class="btn btn-info btn-sm" value="Place Order"/>
+                    <input type="submit" name="ClearOrder" ng-model="ClearOrder" ng-click="ClearOrder()" class="btn btn-danger btn-sm" value="Empty Cart"/>
+                </div>
+            </div>
+        </div>
+        <script src="AppJS/CartModule.js"></script>
+        <script src="AppJS/CartController.js"></script>
+    </body>
+</html>
